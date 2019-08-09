@@ -1,0 +1,57 @@
+[general]
+bindport=4569
+iaxcompat=yes
+bandwidth=high
+disallow=all
+allow=all
+allow=gsm                      ; Always allow GSM, it's cool :)
+jitterbuffer=no
+tos=lowdelay
+
+#include iax-vicidial.conf
+
+;register => 1112223333:PASSWORD@iax.binfone.com
+register => ASTloop:test@127.0.0.1:40569
+register => ASTblind:test@127.0.0.1:41569
+
+[vicihelp]
+host=67.134.219.20 			;voip.vicidial-group.com
+type=friend
+context=opengateway
+disallow=all
+allow=gsm
+allow=ulaw
+permit=67.134.219.20/255.255.255.255
+insecure=very
+
+[ASTloop]
+type=friend
+accountcode=ASTloop
+context=default
+auth=plaintext
+host=dynamic
+permit=0.0.0.0/0.0.0.0
+secret=test
+disallow=all
+allow=ulaw
+qualify=yes
+
+[ASTblind]
+type=friend
+accountcode=ASTblind
+context=default
+auth=plaintext
+host=dynamic
+permit=0.0.0.0/0.0.0.0
+secret=test
+disallow=all
+allow=ulaw
+qualify=yes
+
+[1112223333]
+auth=md5
+type=friend
+username=1112223333
+secret=PASSWORD
+host=iax.binfone.com
+context=trunkinbound

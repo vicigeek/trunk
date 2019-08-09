@@ -1,0 +1,88 @@
+[general]
+bindport=4569                   ; bindport and bindaddr may be specified
+bindaddr=0.0.0.0                ; more than once to bind to multiple
+;iaxcompat=yes
+;nochecksums=no
+delayreject=yes
+;amaflags=default
+adsi=no
+;accountcode=vicidial
+language=en
+mohinterpret=passthrough
+mohsuggest=default
+disallow=all
+allow=ulaw
+allow=gsm
+jitterbuffer=yes
+forcejitterbuffer=no
+maxjitterbuffer=1000
+maxjitterinterps=10
+resyncthreshold=1000
+trunkfreq=20                    ; How frequently to send trunk msgs (in ms)
+trunktimestamps=yes
+minregexpire = 60
+maxregexpire = 360
+iaxthreadcount = 50
+iaxmaxthreadcount = 250
+;register => marko:secretpass@tormenta.linux-support.net
+;register => joe@remotehost:5656
+;register => marko:[torkey]@tormenta.linux-support.net
+;register => user:pass@iaxtel.com
+;register => FWDNumber:passwd@iax.fwdnet.net
+authdebug=no
+regcontext=default
+autokill=yes
+codecpriority=host
+allowfwdownload=no
+;rtcachefriends=yes     ; Cache realtime friends by adding them to the internal list
+;rtupdate=yes           ; Send registry updates to database using realtime? (yes|no)
+;rtautoclear=yes        ; Auto-Expire friends created on the fly on the same schedule
+;rtignoreregexpire=yes  ; When reading a peer from Realtime, if the peer's registration
+
+#include iax-vicidial.conf
+
+;register => 1112223333:PASSWORD@iax.binfone.com
+register => ASTloop:test@127.0.0.1:40569
+register => ASTblind:test@127.0.0.1:41569
+
+[vicihelp]
+host=67.134.219.20 			;voip.vicidial-group.com
+type=friend
+context=opengateway
+disallow=all
+allow=gsm
+allow=ulaw
+permit=67.134.219.20/255.255.255.255
+insecure=very
+
+[ASTloop]
+type=friend
+accountcode=ASTloop
+context=default
+auth=plaintext
+host=dynamic
+permit=0.0.0.0/0.0.0.0
+secret=test
+disallow=all
+allow=ulaw
+qualify=yes
+
+[ASTblind]
+type=friend
+accountcode=ASTblind
+context=default
+auth=plaintext
+host=dynamic
+permit=0.0.0.0/0.0.0.0
+secret=test
+disallow=all
+allow=ulaw
+qualify=yes
+
+[1112223333]
+auth=md5
+type=friend
+username=1112223333
+secret=PASSWORD
+host=iax.binfone.com
+context=trunkinbound
